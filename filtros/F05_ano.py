@@ -16,12 +16,11 @@ def request_ano_min(bot, message, cidade_escolhida, categoria_escolhida, preco_m
 def handle_ano_min(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo):
     try:
         if message.text == "Pular":
-            bot.reply_to(message, "Entendi. Vamos para o próximo passo.")
+            bot.reply_to(message, "Entendi. Vamos para o próximo filtro.")
             request_marca(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, None, None) 
             return
 
         ano_min = int(message.text.strip())  # Guarda o valor como inteiro
-        bot.reply_to(message, f"Ano mínimo definido: {ano_min}")
         request_ano_max(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min)
     except ValueError:
         bot.reply_to(message, "Valor inválido. Por favor, insira um número válido.")
@@ -44,7 +43,6 @@ def handle_ano_max(bot, message, cidade_escolhida, categoria_escolhida, preco_mi
             bot.reply_to(message, "O ano máximo deve ser maior ou igual ao ano mínimo. Por favor, insira um novo valor.")
             bot.register_next_step_handler(message, lambda msg: handle_ano_max(bot, msg, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min))  # Pede o ano máximo novamente
         else:
-            bot.reply_to(message, f"Ano máximo definido: {ano_max}")
             request_marca(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max)
     except ValueError:
         bot.reply_to(message, "Valor inválido. Por favor, insira um número válido.")

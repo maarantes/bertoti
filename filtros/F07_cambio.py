@@ -3,6 +3,7 @@ from filtro_completo import filtro_completo
 
 # Função para pedir o tipo de câmbio
 def request_cambio(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max, marca_escolhida):
+    
     markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
 
     # Criar os botões de câmbio
@@ -19,13 +20,13 @@ def request_cambio(bot, message, cidade_escolhida, categoria_escolhida, preco_mi
 
 # Função para lidar com a escolha do tipo de câmbio
 def handle_cambio(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max, marca_escolhida):
+    
     try:
         if message.text == "Pular":
-            bot.reply_to(message, "Entendi. Vamos finalizar.")
+            bot.reply_to(message, "Entendi. Vamos finalizar a filtragem.")
             filtro_completo(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max, marca_escolhida, None)
         else:
             cambio_escolhido = message.text
-            bot.reply_to(message, f"Você escolheu o câmbio {cambio_escolhido}.")
             filtro_completo(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max, marca_escolhida, cambio_escolhido)
     except Exception as e:
         bot.reply_to(message, f"Erro: {str(e)}")

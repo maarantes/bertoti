@@ -27,7 +27,7 @@ def handle_category(bot, message, cidade_escolhida):
     try:
         global categoria_escolhida
         if message.text == "Pular":
-            bot.reply_to(message, "Entendi. Vamos para o próximo passo.")
+            bot.reply_to(message, "Entendi. Vamos para o próximo filtro.")
             categoria_escolhida = ""
         else:
             tipo_escolhido = message.text.upper()

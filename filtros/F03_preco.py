@@ -14,13 +14,12 @@ def request_preco_min(bot, message, cidade_escolhida, categoria_escolhida):
 # Função para lidar com o preço mínimo
 def handle_preco_min(bot, message, cidade_escolhida, categoria_escolhida):
     if message.text == "Pular":
-        bot.reply_to(message, "Entendi. Vamos para o próximo passo.")
+        bot.reply_to(message, "Entendi. Vamos para o próximo filtro.")
         request_km_min(bot, message, cidade_escolhida, categoria_escolhida, preco_min=None, preco_max=None)
         return
 
     try:
         preco_min = int(message.text.replace("R$", "").replace(",", "").strip())
-        bot.reply_to(message, f"Preço mínimo definido: R$ {preco_min}")
         request_preco_max(bot, message, cidade_escolhida, categoria_escolhida, preco_min)
     except ValueError:
         bot.reply_to(message, "Valor inválido. Por favor, insira um número válido.")
@@ -43,7 +42,6 @@ def handle_preco_max(bot, message, cidade_escolhida, categoria_escolhida, preco_
             bot.reply_to(message, "O preço máximo deve ser maior que o preço mínimo. Por favor, insira um novo valor.")
             bot.register_next_step_handler(message, lambda msg: handle_preco_max(bot, msg, cidade_escolhida, categoria_escolhida, preco_min))  # Pede o preço máximo novamente
         else:
-            bot.reply_to(message, f"Preço máximo definido: R$ {preco_max}")
             # Passa as informações coletadas para o próximo filtro
             request_km_min(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max)
     except ValueError:

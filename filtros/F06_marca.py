@@ -27,11 +27,10 @@ def request_marca(bot, message, cidade_escolhida, categoria_escolhida, preco_min
 def handle_marca(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max):
     try:
         if message.text == "Pular":
-            bot.reply_to(message, "Entendi. Vamos para o próximo passo.")
+            bot.reply_to(message, "Entendi. Vamos para o último filtro.")
             request_cambio(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max, None)
         else:
             marca_escolhida = message.text
-            bot.reply_to(message, f"Você escolheu a marca {marca_escolhida}.")
             request_cambio(bot, message, cidade_escolhida, categoria_escolhida, preco_min, preco_max, km_minimo, km_maximo, ano_min, ano_max, marca_escolhida)
     except Exception as e:
         bot.reply_to(message, f"Erro: {str(e)}")
